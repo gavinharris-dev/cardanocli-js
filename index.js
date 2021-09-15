@@ -173,7 +173,6 @@ class CardanocliJs {
     }
     execSync(`${this.cliPath} query protocol-parameters \
                             --${this.network} \
-                            --cardano-mode \
                             --out-file ${this.dir}/tmp/protocolParams.json
                         `);
     this.protocolParametersPath = `${this.dir}/tmp/protocolParams.json`;
@@ -192,9 +191,7 @@ class CardanocliJs {
     }
     return JSON.parse(
       execSync(`${this.cliPath} query tip \
-        --${this.network} \
-        --cardano-mode
-                        `).toString()
+        --${this.network}`).toString()
     );
   }
 
@@ -232,9 +229,7 @@ class CardanocliJs {
     }
     const utxosRaw = execSync(`${this.cliPath} query utxo \
             --${this.network} \
-            --address ${address} \
-            --cardano-mode
-            `).toString();
+            --address ${address}`).toString();
 
     const utxos = utxosRaw.split("\n");
     utxos.splice(0, 1);
@@ -898,7 +893,8 @@ class CardanocliJs {
       ? auxScriptToString(this.dir, options.auxScript)
       : "";
     const scriptInvalid = options.scriptInvalid ? "--script-invalid" : "";
-    execSync(`${this.cliPath} transaction build-raw \
+    execSync(
+      `${this.cliPath} transaction build-raw \
                 ${txInString} \
                 ${txOutString} \
                 ${txInCollateralString} \
@@ -908,17 +904,18 @@ class CardanocliJs {
                 ${auxScript} \
                 ${metadata} \
                 ${scriptInvalid} \
+                --invalid-before ${
+                  options.invalidBefore ? options.invalidBefore : 0
+                } \
                 --invalid-hereafter ${
                   options.invalidAfter
                     ? options.invalidAfter
                     : this.queryTip().slot + 10000
                 } \
-                --invalid-before ${
-                  options.invalidBefore ? options.invalidBefore : 0
-                } \
                 --fee ${options.fee ? options.fee : 0} \
                 --out-file ${this.dir}/tmp/tx_${UID}.raw \
-                ${this.era}`);
+                ${this.era}`.replace(/\n/, " ")
+    );
 
     return `${this.dir}/tmp/tx_${UID}.raw`;
   }

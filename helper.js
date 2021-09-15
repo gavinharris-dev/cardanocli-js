@@ -136,7 +136,7 @@ exports.txInToString = (dir, txInList, isCollateral) => {
 exports.txOutToString = (txOutList) => {
   let result = "";
   txOutList.forEach((txOut) => {
-    result += `--tx-out "${txOut.address}+${txOut.value.lovelace}`;
+    result += `--tx-out "${txOut.address.trim()}+${txOut.value.lovelace}`;
     Object.keys(txOut.value).forEach((asset) => {
       if (asset == "lovelace") return;
       result += `+${txOut.value[asset]} ${asset}`;
