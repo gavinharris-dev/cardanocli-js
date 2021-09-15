@@ -391,8 +391,21 @@ class CardanocliJs {
       let response = fetch(`${this.httpProvider}/${account}/addressKeyHash`);
       return response.then((res) => res.text());
     }
+    return this.addressKeyHashPath(
+      `${this.dir}/priv/wallet/${account}/${account}.payment.vkey`
+    );
+  }
+
+  /**
+   *
+   * @param {string} account - Name of account
+   */
+  addressKeyHashPath(path) {
+    if (this.httpProvider && typeof window !== "undefined") {
+      throw new Error("Not HTTP enabled");
+    }
     return execSync(`${this.cliPath} address key-hash \
-                        --payment-verification-key-file ${this.dir}/priv/wallet/${account}/${account}.payment.vkey \
+                        --payment-verification-key-file ${path} \
                     `)
       .toString()
       .trim();
