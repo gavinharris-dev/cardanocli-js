@@ -261,6 +261,27 @@ class CardanocliJs {
     return result;
   }
 
+  policyAddressKeyGen() {
+    if (this.httpProvider && typeof window !== "undefined") {
+      throw new Error("Http Provider Not handled");
+    }
+    let UID = Math.random().toString(36).substr(2, 9);
+    let vkey = `${this.dir}/tmp/policy.${UID}.vkey`;
+    let skey = `${this.dir}/tmp/policy.${UID}.skey`;
+
+    fileExists([vkey, skey]);
+
+    execSync(`${this.cliPath} address key-gen \
+            --verification-key-file ${vkey} \
+            --signing-key-file ${skey}
+        `);
+
+    return {
+      vkey,
+      skey,
+    };
+  }
+
   /**
    *
    * @param {string} account - Name of account
@@ -463,12 +484,10 @@ class CardanocliJs {
       const utxos = this.queryUtxo(paymentAddr);
       const value = {};
       utxos.forEach((utxo) => {
-        Object.keys(utxo.value)
-          .filter((asset) => !type || type === asset) // Only handle one type of asset for now; i.e., 'lovelace'
-          .forEach((asset) => {
-            if (!value[asset]) value[asset] = 0;
-            value[asset] += utxo.value[asset];
-          });
+        Object.keys(utxo.value).forEach((asset) => {
+          if (!value[asset]) value[asset] = 0;
+          value[asset] += utxo.value[asset];
+        });
       });
 
       return { utxo: utxos, value };
