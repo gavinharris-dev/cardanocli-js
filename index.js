@@ -459,14 +459,16 @@ class CardanocliJs {
       setKeys(keysPath, name, `${this.dir}/priv/wallet/${account}/${file}`);
     });
 
-    const balance = () => {
+    const balance = (type) => {
       const utxos = this.queryUtxo(paymentAddr);
       const value = {};
       utxos.forEach((utxo) => {
-        Object.keys(utxo.value).forEach((asset) => {
-          if (!value[asset]) value[asset] = 0;
-          value[asset] += utxo.value[asset];
-        });
+        Object.keys(utxo.value)
+          .filter((asset) => !type || type === asset) // Only handle one type of asset for now; i.e., 'lovelace'
+          .forEach((asset) => {
+            if (!value[asset]) value[asset] = 0;
+            value[asset] += utxo.value[asset];
+          });
       });
 
       return { utxo: utxos, value };
