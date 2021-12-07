@@ -243,7 +243,7 @@ class CardanocliJs {
       const value = {};
       let datumHash;
       valueList.forEach((v) => {
-        if (v.includes("TxOutDatumHash") || v.includes("TxOutDatumNone") ) {
+        if (v.includes("TxOutDatumHash") || v.includes("TxOutDatumNone")) {
           if (!v.includes("None"))
             datumHash = JSON.parse(v.trim().split(" ")[2]);
           return;
@@ -710,7 +710,7 @@ class CardanocliJs {
                         } \
                         --out-file ${
                           this.dir
-                        }/priv/pool/${poolName}/${poolName}.node.cert 
+                        }/priv/pool/${poolName}/${poolName}.node.cert
                     `);
     return `${this.dir}/priv/pool/${poolName}/${poolName}.node.cert`;
   }
@@ -926,6 +926,9 @@ class CardanocliJs {
     const auxScript = options.auxScript
       ? auxScriptToString(this.dir, options.auxScript)
       : "";
+
+    if (!this.protocolParametersPath) this.queryProtocolParameters();
+
     const scriptInvalid = options.scriptInvalid ? "--script-invalid" : "";
     execSync(
       `${this.cliPath} transaction build-raw \
@@ -948,6 +951,7 @@ class CardanocliJs {
                 } \
                 --fee ${options.fee ? options.fee : 0} \
                 --out-file ${this.dir}/tmp/tx_${UID}.raw \
+                --protocol-params-file ${this.protocolParametersPath} \
                 ${this.era}`.replace(/\n/, " ")
     );
 
@@ -1011,6 +1015,7 @@ class CardanocliJs {
     const witnessOverride = options.witnessOverride
       ? `--witness-override ${options.witnessOverride}`
       : "";
+    if (!this.protocolParametersPath) this.queryProtocolParameters();
     execSync(`${this.cliPath} transaction build \
                 ${txInString} \
                 ${txOutString} \
@@ -1033,6 +1038,7 @@ class CardanocliJs {
                 --out-file ${this.dir}/tmp/tx_${UID}.raw \
                 ${changeAddressString} \
                 --${this.network} \
+                --protocol-params-file ${this.protocolParametersPath} \
                 ${this.era}`);
 
     return `${this.dir}/tmp/tx_${UID}.raw`;
