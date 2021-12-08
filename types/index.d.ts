@@ -104,6 +104,11 @@ declare class CardanocliJs {
      */
     queryTip(): object;
     /**
+     *
+     * @param {string} data
+     */
+    txHashScriptData(data: string): any;
+    /**
      * @param {stakeAddr} address
      * @returns {object}
      */
