@@ -1,27 +1,21 @@
 export = CardanocliJs;
 /**
- * @typedef lovelace
- * @property {number}
+ * @typedef {number} lovelace
  */
 /**
- * @typedef asset
- * @property {string}
+ * @typedef {string} asset
  */
 /**
- * @typedef quantity
- * @property {string}
+ * @typedef {string} quantity
  */
 /**
- * @typedef path
- * @property {string}
+ * @typedef {string} path
  */
 /**
- * @typedef paymentAddr
- * @property {string}
+ * @typedef {string} paymentAddr
  */
 /**
- * @typedef stakeAddr
- * @property {string}
+ * @typedef {string} stakeAddr
  */
 /**
  * @typedef {Object} TxIn
@@ -96,8 +90,8 @@ declare class CardanocliJs {
     });
     network: string;
     era: string;
-    dir: string | path;
-    cliPath: string | path;
+    dir: string;
+    cliPath: string;
     shelleyGenesis: any;
     httpProvider: string;
     /**
@@ -463,18 +457,10 @@ declare class CardanocliJs {
 declare namespace CardanocliJs {
     export { lovelace, asset, quantity, path, paymentAddr, stakeAddr, TxIn, TxOut, TxInCollateral, Mint, Certificate, Withdrawal, Value };
 }
-type path = {
-    "": string;
-};
-type stakeAddr = {
-    "": string;
-};
-type paymentAddr = {
-    "": string;
-};
-type lovelace = {
-    "": number;
-};
+type stakeAddr = string;
+type paymentAddr = string;
+type path = string;
+type lovelace = number;
 type TxIn = {
     txHash: string;
     txId: string;
@@ -517,11 +503,7 @@ type Mint = {
     executionUnits: [number, number];
 };
 type Value = {
-    [x: string]: quantity;
+    [x: string]: string;
 };
-type asset = {
-    "": string;
-};
-type quantity = {
-    "": string;
-};
+type asset = string;
+type quantity = string;

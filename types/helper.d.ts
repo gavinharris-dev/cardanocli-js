@@ -1,0 +1,15 @@
+export function ownerToString(ownerList: any): string;
+export function relayToString(relayList: any): string;
+export function certToString(dir: any, certList: any): string;
+export function withdrawalToString(dir: any, withdrawalList: any): string;
+export function auxScriptToString(dir: any, scriptList: any): any;
+export function jsonToPath(dir: any, json: any, type?: string): string;
+export function txInToString(dir: any, txInList: any, isCollateral: any): string;
+export function txOutToString(txOutList: any): string;
+export function signingKeysToString(signingKeys: any): string;
+export function witnessFilesToString(witnessFiles: any): string;
+export function fileException(callback: any): void;
+export function setKeys(obj: any, path: any, value: any): void;
+export function fileExists(files: any): void;
+export function mintToString(dir: any, minting: any): string;
+export function multiAssetToString(value: any): string;

@@ -22,33 +22,27 @@ const fetch =
   typeof window !== "undefined" ? window.fetch : require("sync-fetch");
 
 /**
- * @typedef lovelace
- * @property {number}
+ * @typedef {number} lovelace
  */
 
 /**
- * @typedef asset
- * @property {string}
+ * @typedef {string} asset
  */
 
 /**
- * @typedef quantity
- * @property {string}
+ * @typedef {string} quantity
  */
 
 /**
- * @typedef path
- * @property {string}
+ * @typedef {string} path
  */
 
 /**
- * @typedef paymentAddr
- * @property {string}
+ * @typedef {string} paymentAddr
  */
 
 /**
- * @typedef stakeAddr
- * @property {string}
+ * @typedef {string} stakeAddr
  */
 
 /**
