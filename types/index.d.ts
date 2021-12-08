@@ -24,7 +24,7 @@ export = CardanocliJs;
  * @property {object=} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object} TxOut
@@ -45,7 +45,7 @@ export = CardanocliJs;
  * @property {object} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object} Certificate
@@ -53,7 +53,7 @@ export = CardanocliJs;
  * @property {object=} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object} Withdrawal
@@ -62,7 +62,7 @@ export = CardanocliJs;
  * @property {object=} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object.<string, quantity>} Value
@@ -472,7 +472,7 @@ type TxIn = {
     script?: object | undefined;
     datum?: object | undefined;
     redeemer?: object | undefined;
-    executionUnits: [number, number];
+    executionUnits?: [number, number] | undefined;
 };
 type TxOut = {
     address: string;
@@ -489,14 +489,14 @@ type Withdrawal = {
     script?: object | undefined;
     datum?: object | undefined;
     redeemer?: object | undefined;
-    executionUnits: [number, number];
+    executionUnits?: [number, number] | undefined;
 };
 type Certificate = {
     cert: path;
     script?: object | undefined;
     datum?: object | undefined;
     redeemer?: object | undefined;
-    executionUnits: [number, number];
+    executionUnits?: [number, number] | undefined;
 };
 type Mint = {
     action: string;
@@ -505,7 +505,7 @@ type Mint = {
     script: object;
     datum?: object | undefined;
     redeemer?: object | undefined;
-    executionUnits: [number, number];
+    executionUnits?: [number, number] | undefined;
 };
 type Value = {
     [x: string]: string;

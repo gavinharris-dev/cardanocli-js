@@ -52,7 +52,7 @@ const fetch =
  * @property {object=} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object} TxOut
@@ -73,7 +73,7 @@ const fetch =
  * @property {object} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object} Certificate
@@ -81,7 +81,7 @@ const fetch =
  * @property {object=} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object} Withdrawal
@@ -90,7 +90,7 @@ const fetch =
  * @property {object=} script
  * @property {object=} datum
  * @property {object=} redeemer
- * @property {[number, number]} executionUnits
+ * @property {[number, number]=} executionUnits
  */
 /**
  * @typedef {Object.<string, quantity>} Value
