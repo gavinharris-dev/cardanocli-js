@@ -22,8 +22,8 @@ export = CardanocliJs;
  * @property {string} txHash
  * @property {string} txId
  * @property {object=} script
- * @property {object=} datum
- * @property {object=} redeemer
+ * @property {object|string|number=} datum
+ * @property {object|string|number=} redeemer
  * @property {[number, number]=} executionUnits
  */
 /**
@@ -470,8 +470,8 @@ type TxIn = {
     txHash: string;
     txId: string;
     script?: object | undefined;
-    datum?: object | undefined;
-    redeemer?: object | undefined;
+    datum?: (object | string | number) | undefined;
+    redeemer?: (object | string | number) | undefined;
     executionUnits?: [number, number] | undefined;
 };
 type TxOut = {

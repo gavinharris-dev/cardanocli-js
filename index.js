@@ -50,8 +50,8 @@ const fetch =
  * @property {string} txHash
  * @property {string} txId
  * @property {object=} script
- * @property {object=} datum
- * @property {object=} redeemer
+ * @property {object|string|number=} datum
+ * @property {object|string|number=} redeemer
  * @property {[number, number]=} executionUnits
  */
 /**
