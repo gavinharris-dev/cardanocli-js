@@ -194,10 +194,8 @@ class CardanocliJs {
    * @param {string} data
    */
   txHashScriptData(data) {
-    return JSON.parse(
-      execSync(
-        `${this.cliPath} transaction hash-script-data --script-data-value ${data}`
-      )
+    return execSync(
+      `${this.cliPath} transaction hash-script-data --script-data-value ${data}`
     );
   }
 
