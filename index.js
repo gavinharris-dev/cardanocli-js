@@ -224,6 +224,19 @@ class CardanocliJs {
    * @param {paymentAddr} address
    * @returns {object}
    */
+  queryTxIdUtxo(txId) {
+    // cardano-cli query utxo --tx-in '723015c2a062ca9fb39f8ac390da2b5fbd8ea6ee6748c66e68cf540e6c4be0ef#1' --out-file utxo.out $MAGIC
+    const utxosRaw = execSync(`${this.cliPath} query utxo \
+            --${this.network} \
+            --tx-in ${txId}`).toString();
+    
+    return JSON.parse(utxosRaw);
+  }
+
+  /**
+   * @param {paymentAddr} address
+   * @returns {object}
+   */
   queryUtxo(address) {
     if (this.httpProvider) {
       let response = fetch(`${this.httpProvider}/queryUtxo/${address}`);
