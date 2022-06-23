@@ -493,7 +493,7 @@ type TxIn = {
 type TxOut = {
   address: string;
   value: object;
-  datumHash: string;
+  datumHash?: string;
 };
 type TxInCollateral = {
   txHash: string;
