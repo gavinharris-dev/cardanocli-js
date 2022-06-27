@@ -229,8 +229,35 @@ class CardanocliJs {
     const utxosRaw = execSync(`${this.cliPath} query utxo \
             --${this.network} \
             --tx-in ${txId}`).toString();
-    
-    return JSON.parse(utxosRaw);
+
+    const utxos = utxosRaw.split("\n");
+    utxos.splice(0, 1);
+    utxos.splice(0, 1);
+    utxos.splice(utxos.length - 1, 1);
+    const result = utxos.map((raw, index) => {
+      const utxo = raw.replace(/\s+/g, " ").split(" ");
+      const txHash = utxo[0];
+      const txId = parseInt(utxo[1]);
+      const valueList = utxo.slice(2, utxo.length).join(" ").split("+");
+      const value = {};
+      let datumHash;
+      valueList.forEach((v) => {
+        if (v.includes("TxOutDatumHash") || v.includes("TxOutDatumNone")) {
+          if (!v.includes("None"))
+            datumHash = JSON.parse(v.trim().split(" ")[2]);
+          return;
+        }
+        let [quantity, asset] = v.trim().split(" ");
+        quantity = parseInt(quantity);
+        value[asset] = quantity;
+      });
+      const result = { txHash, txId, value };
+      if (datumHash) result.datumHash = datumHash;
+
+      return result;
+    });
+
+    return result;
   }
 
   /**
