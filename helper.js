@@ -143,7 +143,7 @@ exports.txOutToString = (txOutList) => {
 
     if (txOut.inlineDatum) {
       txOut.inlineDatum &&
-        (result += `--tx-out-inline-datum-cbor-file ${txOut.inlineDatum} `);
+        (result += `--tx-out-inline-datum-value ${txOut.inlineDatum} `);
     } else {
       txOut.datumHash && (result += `--tx-out-datum-hash ${txOut.datumHash} `);
     }
