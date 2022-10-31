@@ -58,7 +58,8 @@ const fetch =
  * @typedef {Object} TxOut
  * @property {string} address
  * @property {object} value
- * @property {string} datumHash
+ * @property {?string} datumHash
+ * @property {?string} inlineDatum
  */
 /**
  * @typedef {Object} TxInCollateral
