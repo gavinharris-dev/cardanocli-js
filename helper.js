@@ -141,11 +141,8 @@ exports.txOutToString = (txOutList) => {
     });
     result += `" `;
 
-    if (txOut.inlineDatum) {
-      txOut.inlineDatum &&
-        (result += `--tx-out-inline-datum-value ${JSON.stringify(
-          txOut.inlineDatum
-        )} `);
+    if (txOut.inlineDatumFile) {
+      result += `--tx-out-inline-datum-file ${txOut.inlineDatumFile} `;
     } else {
       txOut.datumHash && (result += `--tx-out-datum-hash ${txOut.datumHash} `);
     }
