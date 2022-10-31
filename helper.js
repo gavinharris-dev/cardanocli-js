@@ -115,9 +115,7 @@ exports.txInToString = (dir, txInList, isCollateral) => {
           ? `--tx-in-script-file ${this.jsonToPath(dir, txIn.script)} `
           : ""
       } ${
-        txIn.datum
-          ? `--tx-in-datum-value '${JSON.stringify(txIn.datum)}' `
-          : ""
+        txIn.datum ? `--tx-in-datum-value '${JSON.stringify(txIn.datum)}' ` : ""
       } ${
         txIn.redeemer
           ? `--tx-in-redeemer-value '${JSON.stringify(txIn.redeemer)}' `
@@ -142,9 +140,13 @@ exports.txOutToString = (txOutList) => {
       result += `+${txOut.value[asset]} ${asset}`;
     });
     result += `" `;
-    txOut.datumHash && (result += `--tx-out-datum-hash ${txOut.datumHash} `);
-    txOut.inlineDatum && (result += `--tx-out-inline-datum-cbor-file ${txOut.inlineDatum} `);
-    
+
+    if (txOut.inlineDatum) {
+      txOut.inlineDatum &&
+        (result += `--tx-out-inline-datum-cbor-file ${txOut.inlineDatum} `);
+    } else {
+      txOut.datumHash && (result += `--tx-out-datum-hash ${txOut.datumHash} `);
+    }
   });
   return result;
 };
